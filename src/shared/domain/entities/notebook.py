@@ -3,14 +3,14 @@ import abc
 from src.shared.helpers.errors.domain_errors import EntityError
 
 class Notebook(abc.ABC):
-    serial: str
+    num_serie: str
     isActive: bool
-    SERIAL_LENGTH = 5
+    NUM_SERIE_LENGTH = 5
     
-    def __init__(self, serial: str, isActive: bool == False):
-        if not Notebook.validate_serial(serial):
-            raise EntityError("serial")
-        self.serial = serial
+    def __init__(self, num_serie: str, isActive: bool == False):
+        if not Notebook.validate_num_serie(num_serie):
+            raise EntityError("num_serie")
+        self.num_serie = num_serie
         
         if isActive == None:
             isActive = False
@@ -19,14 +19,14 @@ class Notebook(abc.ABC):
         self.isActive = isActive
         
     @staticmethod
-    def validate_serial(serial) -> bool:
-        if serial is None:
+    def validate_num_serie(num_serie) -> bool:
+        if num_serie is None:
             return False
-        if type(serial) is not str:
+        if type(num_serie) is not str:
             return False
-        if not serial.isdecimal():
+        if not num_serie.isdecimal():
             return False
-        if len(serial) != Notebook.SERIAL_LENGTH:
+        if len(num_serie) != Notebook.NUM_SERIE_LENGTH:
             return False
         
         return True

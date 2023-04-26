@@ -7,45 +7,45 @@ class Test_Notebook:
     
     def test_notebook(self):
         notebook = Notebook(
-            serial="34756",
+            num_serie="34756",
             isActive=True
         )
         
         assert type(notebook) == Notebook
-        assert notebook.serial == "34756"
+        assert notebook.num_serie == "34756"
         assert notebook.isActive == True
         
-    def test_notebook_serial_is_none(self):
+    def test_notebook_num_serie_is_none(self):
         with pytest.raises(EntityError):
             Notebook(
-                serial=None,
+                num_serie=None,
                 isActive=True
             )
             
-    def test_notebook_serial_not_str(self):
+    def test_notebook_num_serie_not_str(self):
         with pytest.raises(EntityError):
             Notebook(
-                serial=34756,
+                num_serie=34756,
                 isActive=True
             )
             
-    def test_notebook_serial_not_decimal(self):
+    def test_notebook_num_serie_not_decimal(self):
         with pytest.raises(EntityError):
             Notebook(
-                serial="34a56",
+                num_serie="34a56",
                 isActive=True
             )
             
-    def test_notebook_serial_wrong_length(self):
+    def test_notebook_num_serie_wrong_length(self):
         with pytest.raises(EntityError):
             Notebook(
-                serial="3475",
+                num_serie="3475",
                 isActive=True
             )
             
     def test_notebook_isActive_is_none(self):
         notebook = Notebook(
-                serial="34756",
+                num_serie="34756",
                 isActive=None
             )
         
@@ -54,6 +54,6 @@ class Test_Notebook:
     def test_notebook_isActive_not_bool(self):
         with pytest.raises(EntityError):
             Notebook(
-                serial="34756",
+                num_serie="34756",
                 isActive="True"
             )
