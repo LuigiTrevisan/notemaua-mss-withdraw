@@ -1,9 +1,7 @@
 import abc
 from src.shared.domain.entities.user import User
-
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.domain.entities.notebook import Notebook
-
 
 class Withdraw(abc.ABC):
     num_serie: str

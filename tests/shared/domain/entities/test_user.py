@@ -1,8 +1,7 @@
+import pytest
 from src.shared.domain.entities.user import User
 from src.shared.domain.enums.role import ROLE
-import pytest
 from src.shared.helpers.errors.domain_errors import EntityError
-
 
 class Test_User:
     def test_user(self):

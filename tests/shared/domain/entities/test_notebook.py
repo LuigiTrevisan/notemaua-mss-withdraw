@@ -2,7 +2,6 @@ import pytest
 from src.shared.domain.entities.notebook import Notebook
 from src.shared.helpers.errors.domain_errors import EntityError
 
-
 class Test_Notebook:
     
     def test_notebook(self):

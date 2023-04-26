@@ -1,5 +1,4 @@
 import pytest
-
 from src.shared.domain.entities.withdraw import Withdraw
 from src.shared.helpers.errors.domain_errors import EntityError
 

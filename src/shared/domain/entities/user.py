@@ -1,6 +1,5 @@
 import abc
 import re
-
 from src.shared.domain.enums.role import ROLE
 from src.shared.helpers.errors.domain_errors import EntityError
 

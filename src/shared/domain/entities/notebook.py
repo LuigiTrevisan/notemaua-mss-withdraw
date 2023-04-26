@@ -1,5 +1,4 @@
 import abc
-
 from src.shared.helpers.errors.domain_errors import EntityError
 
 class Notebook(abc.ABC):
