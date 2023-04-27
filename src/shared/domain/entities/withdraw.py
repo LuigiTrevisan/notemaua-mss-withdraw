@@ -7,9 +7,9 @@ class Withdraw(abc.ABC):
     num_serie: str
     email: str
     withdraw_time: int
-    return_time: int
+    return_time: int = None
     
-    def __init__(self, num_serie: str, email: str, withdraw_time: int, return_time: int == None):
+    def __init__(self, num_serie: str, email: str, withdraw_time: int, return_time: int = None):
         if not Notebook.validate_num_serie(num_serie):
             raise EntityError("num_serie")
         self.num_serie = num_serie

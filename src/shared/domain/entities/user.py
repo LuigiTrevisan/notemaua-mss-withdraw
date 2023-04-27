@@ -14,7 +14,7 @@ class User(abc.ABC):
     
     def __init__(self, ra: str, name: str, email: str, role: ROLE):
         
-        if not User.validate_ra(ra):
+        if not User.validate_ra(ra, role):
             raise EntityError("ra")
         self.ra = ra
                 
@@ -31,15 +31,19 @@ class User(abc.ABC):
         self.role = role
         
     @staticmethod
-    def validate_ra(ra) -> bool:
-        if ra == None:
-            return False
-        if type(ra) != str:
-            return False
-        if not ra.isdecimal():
-            return False
-        if len(ra) != User.RA_LENGTH:
-            return False
+    def validate_ra(ra, role) -> bool:
+        if role is ROLE.STUDENT:
+            if ra is None:
+                return False
+            if type(ra) != str:
+                return False
+            if not ra.isdecimal():
+                return False
+            if len(ra) != User.RA_LENGTH:
+                return False
+        else:
+            if ra is not None:
+                return False
         
         return True    
     
