@@ -9,14 +9,14 @@ class Test_Withdraw:
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1682508271948,
-            return_time=None
+            finish_time=None
         )
         
         assert type(withdraw) == Withdraw
         assert withdraw.num_serie == "34756"
         assert withdraw.email == "22.01102-0@maua.br"
         assert withdraw.withdraw_time == 1682508271948
-        assert withdraw.return_time == None
+        assert withdraw.finish_time == None
         
     def test_withdraw_withdraw_time_is_none(self):
         with pytest.raises(EntityError):
@@ -24,7 +24,7 @@ class Test_Withdraw:
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=None,
-            return_time=None
+            finish_time=None
         )
             
     def test_withdraw_withdraw_time_not_int(self):
@@ -33,7 +33,7 @@ class Test_Withdraw:
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time="1682508271948",
-            return_time=None
+            finish_time=None
         )
             
     def test_withdraw_withdraw_time_past(self):
@@ -42,7 +42,7 @@ class Test_Withdraw:
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1071972000000,
-            return_time=None
+            finish_time=None
         )
             
     def test_withdraw_return_time_not_int(self):
@@ -51,7 +51,7 @@ class Test_Withdraw:
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1682508271948,
-            return_time="1682509207926"
+            finish_time="1682509207926"
         )
             
     def test_withdraw_return_time_past(self):
@@ -60,7 +60,7 @@ class Test_Withdraw:
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1682508271948,
-            return_time=1071972000000
+            finish_time=1071972000000
         )
             
     def test_withdraw_return_time_smaller_than_withdraw(self):
@@ -69,5 +69,5 @@ class Test_Withdraw:
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1682509207926,
-            return_time=1682508271948
+            finish_time=1682508271948
         )
