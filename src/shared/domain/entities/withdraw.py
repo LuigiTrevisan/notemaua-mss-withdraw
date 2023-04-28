@@ -7,6 +7,7 @@ class Withdraw(abc.ABC):
     num_serie: str
     email: str
     withdraw_time: int
+
     return_time: int = None
     
     def __init__(self, num_serie: str, email: str, withdraw_time: int, return_time: int = None):
@@ -22,14 +23,14 @@ class Withdraw(abc.ABC):
             raise EntityError("withdraw_time")
         self.withdraw_time = withdraw_time
         
-        if return_time is not None:
-            if not Withdraw.validate_time(return_time):
-                raise EntityError("return_time")
-            if return_time < withdraw_time:
-                raise EntityError("return_time")
-            self.return_time = return_time
+        if finish_time is not None:
+            if not Withdraw.validate_time(finish_time):
+                raise EntityError("finish_time")
+            if finish_time < withdraw_time:
+                raise EntityError("finish_time")
+            self.finish_time = finish_time
         else:
-            self.return_time = None
+            self.finish_time = None
         
         
         
