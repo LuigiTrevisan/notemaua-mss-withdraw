@@ -9,9 +9,9 @@ class Withdraw(abc.ABC):
     email: str
     withdraw_time: int
 
-    return_time: int = None
+    finish_time: int = None
     
-    def __init__(self, withdraw_id: int, num_serie: str, email: str, withdraw_time: int, finish_time: int == None):
+    def __init__(self, withdraw_id: int, num_serie: str, email: str, withdraw_time: int, finish_time: int = None):
         if withdraw_id is None:
             raise EntityError("withdraw_id")
         if type(withdraw_id) != int:

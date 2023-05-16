@@ -41,7 +41,7 @@ class IWithdrawRepository(ABC):
         '''
         If withdraw with num_serie exists, finish withdraw and return it
         set Notebook.isActive to False
-        set Withdraw.return_time to current time
+        set Withdraw.finish_time to current time
         get user and notebook and send them to withdraw history
         '''
         pass
