@@ -28,7 +28,7 @@ class WithdrawRepositoryMock(IWithdrawRepository):
         ]
         
         self.withdraws = [
-            Withdraw(num_serie="34036", email="22.01102-0@maua.br", withdraw_time=1682610909494),
-            Withdraw(num_serie="34038", email="22.01049-0@maua.br", withdraw_time=1682611052153),
-            Withdraw(num_serie="34037", email="22.01589-2@maua.br", withdraw_time=1682604600000, return_time=1682611200000),
+            Withdraw(withdraw_id=1, num_serie="34036", email="22.01102-0@maua.br", withdraw_time=1682610909494),
+            Withdraw(withdraw_id=2, num_serie="34038", email="22.01049-0@maua.br", withdraw_time=1682611052153),
+            Withdraw(withdraw_id=3, num_serie="34037", email="22.01589-2@maua.br", withdraw_time=1682604600000, finish_time=1682611200000),
     ]
