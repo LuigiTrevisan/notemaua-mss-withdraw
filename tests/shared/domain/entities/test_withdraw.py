@@ -6,6 +6,7 @@ class Test_Withdraw:
     
     def test_withdraw(self):
         withdraw = Withdraw(
+            withdraw_id=1,
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1682508271948,
@@ -21,6 +22,7 @@ class Test_Withdraw:
     def test_withdraw_withdraw_time_is_none(self):
         with pytest.raises(EntityError):
             withdraw = Withdraw(
+            withdraw_id=1,
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=None,
@@ -30,6 +32,7 @@ class Test_Withdraw:
     def test_withdraw_withdraw_time_not_int(self):
         with pytest.raises(EntityError):
             withdraw = Withdraw(
+            withdraw_id=1,
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time="1682508271948",
@@ -39,6 +42,7 @@ class Test_Withdraw:
     def test_withdraw_withdraw_time_past(self):
         with pytest.raises(EntityError):
             withdraw = Withdraw(
+            withdraw_id=1,
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1071972000000,
@@ -48,6 +52,7 @@ class Test_Withdraw:
     def test_withdraw_return_time_not_int(self):
         with pytest.raises(EntityError):
             withdraw = Withdraw(
+            withdraw_id=1,
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1682508271948,
@@ -57,6 +62,7 @@ class Test_Withdraw:
     def test_withdraw_return_time_past(self):
         with pytest.raises(EntityError):
             withdraw = Withdraw(
+            withdraw_id=1,
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1682508271948,
@@ -66,6 +72,7 @@ class Test_Withdraw:
     def test_withdraw_return_time_smaller_than_withdraw(self):
         with pytest.raises(EntityError):
             withdraw = Withdraw(
+            withdraw_id=1,
             num_serie="34756",
             email="22.01102-0@maua.br",
             withdraw_time=1682509207926,
