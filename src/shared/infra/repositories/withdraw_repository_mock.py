@@ -64,3 +64,8 @@ class WithdrawRepositoryMock(IWithdrawRepository):
         withdraw = Withdraw(withdraw_id=withdraw_id, email=email, num_serie=num_serie, withdraw_time=withdraw_time, finish_time=None)
         self.withdraws.append(withdraw)
         return withdraw
+    
+    def set_notebook_is_active(self, num_serie, is_active):
+        for notebook in self.notebooks:
+            if notebook.num_serie == num_serie:
+                notebook.isActive = is_active

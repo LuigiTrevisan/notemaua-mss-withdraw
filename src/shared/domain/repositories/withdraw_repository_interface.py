@@ -16,6 +16,12 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
+    def set_notebook_is_active(self, num_serie, is_active):
+        '''
+        If notebook with num_serie exists, set Notebook.isActive to is_active
+        '''
+        pass
+    
     def get_all_notebooks(self):
         '''
         Return all withdraws
