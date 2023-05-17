@@ -55,3 +55,16 @@ class Test_WithdrawRepositoryMock:
         is_active = False
         repo.set_notebook_is_active(num_serie, is_active)
         assert repo.notebooks[3].isActive == is_active
+        
+    def test_finish_withdraw(self):
+        repo = WithdrawRepositoryMock()
+        num_serie = repo.withdraws[1].num_serie
+        len_before = len(repo.withdraws)
+        withdraw = repo.finish_withdraw(num_serie)
+        assert withdraw.withdraw_id == repo.withdraws[1].withdraw_id
+        assert withdraw.num_serie == repo.withdraws[1].num_serie
+        assert withdraw.email == repo.withdraws[1].email
+        assert withdraw.withdraw_time == repo.withdraws[1].withdraw_time
+        assert withdraw.finish_time == int(datetime.now().timestamp() * 1000)
+        assert len(repo.withdraws) == len_before
+        assert repo.get_notebook(num_serie).isActive == False
