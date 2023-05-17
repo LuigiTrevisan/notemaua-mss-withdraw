@@ -1,5 +1,7 @@
 from datetime import datetime
 import pytest
+from src.shared.domain.entities.notebook import Notebook
+from src.shared.domain.entities.withdraw import Withdraw
 from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
 
 class Test_WithdrawRepositoryMock:
@@ -68,3 +70,12 @@ class Test_WithdrawRepositoryMock:
         assert withdraw.finish_time == int(datetime.now().timestamp() * 1000)
         assert len(repo.withdraws) == len_before
         assert repo.get_notebook(num_serie).isActive == False
+        
+    def test_get_all_notebooks(self):
+        repo = WithdrawRepositoryMock()
+        notebooks = repo.get_all_notebooks()
+        assert len(notebooks) == 4
+        assert type(notebooks) == list
+        assert type(notebooks[1]) == tuple
+        assert type(notebooks[1][0]) == Notebook
+        assert type(notebooks[1][1]) == Withdraw or None     

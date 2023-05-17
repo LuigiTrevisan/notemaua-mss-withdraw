@@ -76,3 +76,10 @@ class WithdrawRepositoryMock(IWithdrawRepository):
         withdraw.finish_time = finish_time
         self.set_notebook_is_active(num_serie, False)
         return withdraw
+    
+    def get_all_notebooks(self):
+        notebooks = []
+        for notebook in self.notebooks:
+            withdraw = self.get_withdraw_by_num_serie(notebook.num_serie)
+            notebooks.append((notebook, withdraw))
+        return notebooks
