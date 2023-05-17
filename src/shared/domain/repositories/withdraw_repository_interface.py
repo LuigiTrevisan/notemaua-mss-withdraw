@@ -16,7 +16,7 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
-    def get_all_withdraws(self):
+    def get_all_notebooks(self):
         '''
         Return all withdraws
         '''
