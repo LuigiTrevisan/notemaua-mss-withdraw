@@ -29,6 +29,13 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
+    def get_withdraw_by_email(self, email):
+        '''
+        If withdraw with email exists, return Withdraw
+        else return None
+        '''
+        pass
+    
     def create_withdraw(self, num_serie, email):
         '''
         If notebook exists and isActive == False and user exists, create withdraw and return it

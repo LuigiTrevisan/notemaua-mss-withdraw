@@ -32,3 +32,9 @@ class WithdrawRepositoryMock(IWithdrawRepository):
             Withdraw(withdraw_id=2, num_serie="34038", email="22.01049-0@maua.br", withdraw_time=1682611052153),
             Withdraw(withdraw_id=3, num_serie="34037", email="22.01589-2@maua.br", withdraw_time=1682604600000, finish_time=1682611200000),
     ]
+        
+    def get_withdraw_by_email(self, email):
+        for withdraw in self.withdraws:
+            if withdraw.email == email:
+                return withdraw
+        return None
