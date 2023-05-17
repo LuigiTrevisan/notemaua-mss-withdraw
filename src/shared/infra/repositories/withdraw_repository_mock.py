@@ -50,3 +50,9 @@ class WithdrawRepositoryMock(IWithdrawRepository):
             if notebook.num_serie == num_serie:
                 return notebook
         return None
+    
+    def get_user_by_email(self, email):
+        for user in self.users:
+            if user.email == email:
+                return user
+        return None

@@ -26,3 +26,11 @@ class Test_WithdrawRepositoryMock:
         notebook = repo.get_notebook("34038")
         assert notebook.num_serie == "34038"
         assert notebook.isActive == True
+        
+    def test_get_user_by_email(self):
+        repo = WithdrawRepositoryMock()
+        user = repo.get_user_by_email("22.01102-0@maua.br")
+        assert user.ra == repo.users[0].ra
+        assert user.name == repo.users[0].name
+        assert user.email == repo.users[0].email
+        assert user.role == repo.users[0].role
