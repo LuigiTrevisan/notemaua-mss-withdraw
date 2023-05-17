@@ -44,3 +44,9 @@ class WithdrawRepositoryMock(IWithdrawRepository):
             if withdraw.num_serie == num_serie:
                 return withdraw
         return None
+    
+    def get_notebook(self, num_serie):
+        for notebook in self.notebooks:
+            if notebook.num_serie == num_serie:
+                return notebook
+        return None

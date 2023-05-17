@@ -20,5 +20,9 @@ class Test_WithdrawRepositoryMock:
         assert withdraw.email == repo.withdraws[1].email
         assert withdraw.withdraw_time == repo.withdraws[1].withdraw_time
         assert withdraw.finish_time == repo.withdraws[1].finish_time
+        
+    def test_get_notebook(self):
         repo = WithdrawRepositoryMock()
-        assert True    
+        notebook = repo.get_notebook("34038")
+        assert notebook.num_serie == "34038"
+        assert notebook.isActive == True
