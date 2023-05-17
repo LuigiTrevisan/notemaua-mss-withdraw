@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 from src.shared.domain.enums.role import ROLE
 from src.shared.domain.repositories.withdraw_repository_interface import IWithdrawRepository
@@ -56,3 +57,10 @@ class WithdrawRepositoryMock(IWithdrawRepository):
             if user.email == email:
                 return user
         return None
+    
+    def create_withdraw(self, num_serie, email):
+        withdraw_time = int(datetime.now().timestamp() * 1000)
+        withdraw_id = len(self.withdraws) + 1
+        withdraw = Withdraw(withdraw_id=withdraw_id, email=email, num_serie=num_serie, withdraw_time=withdraw_time, finish_time=None)
+        self.withdraws.append(withdraw)
+        return withdraw

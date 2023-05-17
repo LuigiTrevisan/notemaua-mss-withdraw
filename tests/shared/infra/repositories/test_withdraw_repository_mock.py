@@ -1,3 +1,4 @@
+from datetime import datetime
 import pytest
 from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
 
@@ -34,3 +35,17 @@ class Test_WithdrawRepositoryMock:
         assert user.name == repo.users[0].name
         assert user.email == repo.users[0].email
         assert user.role == repo.users[0].role
+            
+    def test_create_withdraw(self):
+        repo = WithdrawRepositoryMock()
+        num_serie = "34139"
+        email = "22.01102-0@maua.br"
+        len_before = len(repo.withdraws)
+        withdraw = repo.create_withdraw(num_serie, email)
+        assert withdraw.withdraw_id == 4
+        assert withdraw.num_serie == num_serie
+        assert withdraw.email == email
+        assert withdraw.withdraw_time == int(datetime.now().timestamp() * 1000)
+        assert withdraw.finish_time == None
+        assert len(repo.withdraws) == len_before + 1
+        
