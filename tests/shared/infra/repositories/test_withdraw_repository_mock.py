@@ -11,5 +11,14 @@ class Test_WithdrawRepositoryMock:
         assert withdraw.email == repo.withdraws[0].email
         assert withdraw.withdraw_time == repo.withdraws[0].withdraw_time
         assert withdraw.finish_time == repo.withdraws[0].finish_time
+
+    def test_get_withdraw_by_num_serie(self):
+        repo = WithdrawRepositoryMock()
+        withdraw = repo.get_withdraw_by_num_serie("34038")
+        assert withdraw.withdraw_id == repo.withdraws[1].withdraw_id
+        assert withdraw.num_serie == repo.withdraws[1].num_serie
+        assert withdraw.email == repo.withdraws[1].email
+        assert withdraw.withdraw_time == repo.withdraws[1].withdraw_time
+        assert withdraw.finish_time == repo.withdraws[1].finish_time
         repo = WithdrawRepositoryMock()
         assert True    

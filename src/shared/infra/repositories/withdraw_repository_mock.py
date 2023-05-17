@@ -38,3 +38,9 @@ class WithdrawRepositoryMock(IWithdrawRepository):
             if withdraw.email == email:
                 return withdraw
         return None
+    
+    def get_withdraw_by_num_serie(self, num_serie):
+        for withdraw in self.withdraws:
+            if withdraw.num_serie == num_serie:
+                return withdraw
+        return None
