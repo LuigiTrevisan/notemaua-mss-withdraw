@@ -17,12 +17,13 @@ class Test_WithdrawRepositoryMock:
 
     def test_get_withdraw_by_num_serie(self):
         repo = WithdrawRepositoryMock()
-        withdraw = repo.get_withdraw_by_num_serie("34038")
-        assert withdraw.withdraw_id == repo.withdraws[1].withdraw_id
-        assert withdraw.num_serie == repo.withdraws[1].num_serie
-        assert withdraw.email == repo.withdraws[1].email
-        assert withdraw.withdraw_time == repo.withdraws[1].withdraw_time
-        assert withdraw.finish_time == repo.withdraws[1].finish_time
+        withdraws = repo.get_withdraws_by_num_serie("34038")
+        assert withdraws[0].withdraw_id == repo.withdraws[1].withdraw_id
+        assert withdraws[0].num_serie == repo.withdraws[1].num_serie
+        assert withdraws[0].email == repo.withdraws[1].email
+        assert withdraws[0].withdraw_time == repo.withdraws[1].withdraw_time
+        assert withdraws[0].finish_time == repo.withdraws[1].finish_time
+        assert len(withdraws) == 2
         
     def test_get_notebook(self):
         repo = WithdrawRepositoryMock()
@@ -78,4 +79,4 @@ class Test_WithdrawRepositoryMock:
         assert type(notebooks) == list
         assert type(notebooks[1]) == tuple
         assert type(notebooks[1][0]) == Notebook
-        assert type(notebooks[1][1]) == Withdraw or None     
+        assert type(notebooks[1][1]) == list

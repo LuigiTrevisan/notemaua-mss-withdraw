@@ -30,6 +30,7 @@ class WithdrawRepositoryMock(IWithdrawRepository):
         
         self.withdraws = [
             Withdraw(withdraw_id=1, num_serie="34036", email="22.01102-0@maua.br", withdraw_time=1682610909494),
+            Withdraw(withdraw_id=4, num_serie="34038", email="22.01102-0@maua.br", withdraw_time=1682611052153, finish_time=1682629052000),
             Withdraw(withdraw_id=2, num_serie="34038", email="22.01049-0@maua.br", withdraw_time=1682611052153),
             Withdraw(withdraw_id=3, num_serie="34037", email="22.01589-2@maua.br", withdraw_time=1682604600000, finish_time=1682611200000),
     ]
@@ -40,11 +41,12 @@ class WithdrawRepositoryMock(IWithdrawRepository):
                 return withdraw
         return None
     
-    def get_withdraw_by_num_serie(self, num_serie):
+    def get_withdraws_by_num_serie(self, num_serie):
+        withdraws = []
         for withdraw in self.withdraws:
             if withdraw.num_serie == num_serie:
-                return withdraw
-        return None
+                withdraws.append(withdraw)
+        return withdraws
     
     def get_notebook(self, num_serie):
         for notebook in self.notebooks:
@@ -80,6 +82,6 @@ class WithdrawRepositoryMock(IWithdrawRepository):
     def get_all_notebooks(self):
         notebooks = []
         for notebook in self.notebooks:
-            withdraw = self.get_withdraw_by_num_serie(notebook.num_serie)
-            notebooks.append((notebook, withdraw))
+            withdraws = self.get_withdraws_by_num_serie(notebook.num_serie)
+            notebooks.append((notebook, withdraws))
         return notebooks
