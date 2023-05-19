@@ -1,29 +1,28 @@
-from datetime import datetime
 import pytest
+from datetime import datetime
 from src.shared.domain.entities.notebook import Notebook
 from src.shared.domain.entities.withdraw import Withdraw
 from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
 
 class Test_WithdrawRepositoryMock:
     
-    def test_get_withdraw_by_email(self):
+    def test_get_withdraws_by_email(self):
         repo = WithdrawRepositoryMock()
-        withdraw = repo.get_withdraw_by_email("22.01102-0@maua.br")
-        assert withdraw.withdraw_id == repo.withdraws[0].withdraw_id
-        assert withdraw.num_serie == repo.withdraws[0].num_serie
-        assert withdraw.email == repo.withdraws[0].email
-        assert withdraw.withdraw_time == repo.withdraws[0].withdraw_time
-        assert withdraw.finish_time == repo.withdraws[0].finish_time
-
-    def test_get_withdraw_by_num_serie(self):
+        withdraws = repo.get_withdraws_by_email("22.01102-0@maua.br")
+        assert len(withdraws) == 2
+        assert withdraws[0] == repo.withdraws[0]
+        assert withdraws[1] == repo.withdraws[3]
+        assert withdraws[0].email == "22.01102-0@maua.br"
+        assert withdraws[1].email == "22.01102-0@maua.br"
+        
+    def test_get_withdraws_by_num_serie(self):
         repo = WithdrawRepositoryMock()
         withdraws = repo.get_withdraws_by_num_serie("34038")
-        assert withdraws[0].withdraw_id == repo.withdraws[1].withdraw_id
-        assert withdraws[0].num_serie == repo.withdraws[1].num_serie
-        assert withdraws[0].email == repo.withdraws[1].email
-        assert withdraws[0].withdraw_time == repo.withdraws[1].withdraw_time
-        assert withdraws[0].finish_time == repo.withdraws[1].finish_time
         assert len(withdraws) == 2
+        assert withdraws[0] == repo.withdraws[1]
+        assert withdraws[1] == repo.withdraws[3]
+        assert withdraws[0].num_serie == "34038"
+        assert withdraws[1].num_serie == "34038"
         
     def test_get_notebook(self):
         repo = WithdrawRepositoryMock()
@@ -45,7 +44,7 @@ class Test_WithdrawRepositoryMock:
         email = "22.01102-0@maua.br"
         len_before = len(repo.withdraws)
         withdraw = repo.create_withdraw(num_serie, email)
-        assert withdraw.withdraw_id == 4
+        assert withdraw.withdraw_id == len(repo.withdraws)
         assert withdraw.num_serie == num_serie
         assert withdraw.email == email
         assert withdraw.withdraw_time == int(datetime.now().timestamp() * 1000)

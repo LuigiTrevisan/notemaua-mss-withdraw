@@ -30,16 +30,17 @@ class WithdrawRepositoryMock(IWithdrawRepository):
         
         self.withdraws = [
             Withdraw(withdraw_id=1, num_serie="34036", email="22.01102-0@maua.br", withdraw_time=1682610909494),
-            Withdraw(withdraw_id=4, num_serie="34038", email="22.01102-0@maua.br", withdraw_time=1682611052153, finish_time=1682629052000),
             Withdraw(withdraw_id=2, num_serie="34038", email="22.01049-0@maua.br", withdraw_time=1682611052153),
             Withdraw(withdraw_id=3, num_serie="34037", email="22.01589-2@maua.br", withdraw_time=1682604600000, finish_time=1682611200000),
+            Withdraw(withdraw_id=4, num_serie="34038", email="22.01102-0@maua.br", withdraw_time=1682611052153, finish_time=1682629052000),
     ]
         
-    def get_withdraw_by_email(self, email):
+    def get_withdraws_by_email(self, email):
+        withdraws = []
         for withdraw in self.withdraws:
             if withdraw.email == email:
-                return withdraw
-        return None
+                withdraws.append(withdraw)
+        return withdraws
     
     def get_withdraws_by_num_serie(self, num_serie):
         withdraws = []
@@ -73,11 +74,13 @@ class WithdrawRepositoryMock(IWithdrawRepository):
                 notebook.isActive = is_active
                 
     def finish_withdraw(self, num_serie):
-        withdraw = self.get_withdraw_by_num_serie(num_serie)
-        finish_time = int(datetime.now().timestamp() * 1000)
-        withdraw.finish_time = finish_time
-        self.set_notebook_is_active(num_serie, False)
-        return withdraw
+        for withdraw in self.withdraws:
+            if withdraw.num_serie == num_serie and withdraw.finish_time == None:
+                finish_time = int(datetime.now().timestamp() * 1000)
+                withdraw.finish_time = finish_time
+                self.set_notebook_is_active(num_serie, False)
+                return withdraw
+        return None
     
     def get_all_notebooks(self):
         notebooks = []
