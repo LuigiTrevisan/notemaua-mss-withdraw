@@ -16,7 +16,13 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
-    def get_all_withdraws(self):
+    def set_notebook_is_active(self, num_serie, is_active):
+        '''
+        If notebook with num_serie exists, set Notebook.isActive to is_active
+        '''
+        pass
+    
+    def get_all_notebooks(self):
         '''
         Return all withdraws
         '''
@@ -25,6 +31,13 @@ class IWithdrawRepository(ABC):
     def get_withdraw_by_num_serie(self, num_serie):
         '''
         If withdraw with num_serie exists, return Withdraw
+        else return None
+        '''
+        pass
+    
+    def get_withdraw_by_email(self, email):
+        '''
+        If withdraw with email exists, return Withdraw
         else return None
         '''
         pass
