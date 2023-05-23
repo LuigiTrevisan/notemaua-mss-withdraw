@@ -28,14 +28,14 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
-    def get_withdraw_by_num_serie(self, num_serie):
+    def get_withdraws_by_num_serie(self, num_serie):
         '''
         If withdraw with num_serie exists, return Withdraw
         else return None
         '''
         pass
     
-    def get_withdraw_by_email(self, email):
+    def get_withdraws_by_email(self, email):
         '''
         If withdraw with email exists, return Withdraw
         else return None
