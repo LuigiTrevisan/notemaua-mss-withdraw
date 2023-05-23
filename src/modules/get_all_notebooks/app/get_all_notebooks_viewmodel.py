@@ -75,8 +75,8 @@ class GetAllNotebooksViewmodel:
     all_notebooks: List[NotebookViewmodel]
     
     def __init__(self, usecase: GetAllNotebooksUsecase):
-        self.usecase = usecase
-        self.all_notebooks = self.usecase()
+        all_notebooks = usecase()
+        self.all_notebooks = all_notebooks
             
     def to_dict(self) -> dict:
         return {
