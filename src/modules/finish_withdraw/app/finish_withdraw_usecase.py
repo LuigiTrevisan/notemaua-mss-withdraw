@@ -7,11 +7,7 @@ class FinishWithdrawUsecase:
         self.repo = repo
 
     def __call__(self, num_serie : str) -> Withdraw:
-        withdraws = self.repo.get_withdraws_by_num_serie(num_serie)
-        contador = 0
-        for withdraw in withdraws:
-            if withdraw.finish_time == None:
-                contador +=1
-        if contador == 0:
-            raise NoItemsFound('num_serie')
-        return self.repo.finish_withdraw(num_serie)
+        withdraw = self.repo.finish_withdraw(num_serie)
+        if withdraw is None:
+            raise NoItemsFound("num_serie")
+        return withdraw
