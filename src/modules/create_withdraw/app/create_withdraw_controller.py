@@ -1,5 +1,5 @@
-from src.modules.create_withdraw.app.create_withdraw_usecase import CreateWithdrawUsecase
-from src.modules.create_withdraw.app.create_withdraw_viewmodel import CreateWithdrawViewmodel
+from .create_withdraw_usecase import CreateWithdrawUsecase
+from .create_withdraw_viewmodel import CreateWithdrawViewmodel
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound

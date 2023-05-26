@@ -1,5 +1,5 @@
-from src.modules.create_withdraw.app.create_withdraw_controller import CreateWithdrawController
-from src.modules.create_withdraw.app.create_withdraw_usecase import CreateWithdrawUsecase
+from .create_withdraw_controller import CreateWithdrawController
+from .create_withdraw_usecase import CreateWithdrawUsecase
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
 
