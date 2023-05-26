@@ -11,8 +11,8 @@ class GetAllNotebooksController:
         
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            
-            viewmodel = GetAllNotebooksViewmodel(self.usecase)
+            notebooks = self.usecase()
+            viewmodel = GetAllNotebooksViewmodel(notebooks=notebooks)
             return OK(viewmodel.to_dict())
         
         except Exception as err:

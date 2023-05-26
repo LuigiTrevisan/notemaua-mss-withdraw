@@ -8,7 +8,7 @@ class Test_GetAllNotebooksViewModel:
     def test_get_all_notebooks_viewmodel(self):
         repo = WithdrawRepositoryMock()
         usecase = GetAllNotebooksUsecase(repo=repo)
-        viewmodel = GetAllNotebooksViewmodel(usecase=usecase).to_dict()
+        viewmodel = GetAllNotebooksViewmodel(notebooks=usecase()).to_dict()
         expected = {
    'notebooks':[
                 {

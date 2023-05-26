@@ -1,5 +1,4 @@
 from typing import List
-from src.modules.get_all_notebooks.app.get_all_notebooks_usecase import GetAllNotebooksUsecase
 
 from src.shared.domain.entities.user import User
 from src.shared.domain.entities.notebook import Notebook
@@ -72,18 +71,17 @@ class WithdrawViewmodel:
         
         
 class GetAllNotebooksViewmodel:
-    all_notebooks: List[NotebookViewmodel]
+    notebooks: List[tuple[Notebook, List[Withdraw]]]
     
-    def __init__(self, usecase: GetAllNotebooksUsecase):
-        all_notebooks = usecase()
-        self.all_notebooks = all_notebooks
+    def __init__(self, notebooks: List[tuple[Notebook, List[Withdraw]]]):
+        self.notebooks = notebooks
             
     def to_dict(self) -> dict:
         return {
             "notebooks" : [
                 {
                     "notebook": NotebookViewmodel(notebook).to_dict(),
-                    "withdraws": [WithdrawViewmodel(withdraw).to_dict() for withdraw in withdraws] if withdraws != None else None} for notebook, withdraws in self.all_notebooks
+                    "withdraws": [WithdrawViewmodel(withdraw).to_dict() for withdraw in withdraws] if withdraws != None else None} for notebook, withdraws in self.notebooks
             ],
             "message": "Notebooks found successfully!"
         }
