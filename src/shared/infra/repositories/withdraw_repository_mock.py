@@ -66,19 +66,19 @@ class WithdrawRepositoryMock(IWithdrawRepository):
         withdraw_id = len(self.withdraws) + 1
         withdraw = Withdraw(withdraw_id=withdraw_id, email=email, num_serie=num_serie, withdraw_time=withdraw_time, finish_time=None)
         self.withdraws.append(withdraw)
-        return withdraw
-    
-    def set_notebook_is_active(self, num_serie, is_active):
         for notebook in self.notebooks:
             if notebook.num_serie == num_serie:
-                notebook.isActive = is_active
+                notebook.isActive = True
+        return withdraw
                 
     def finish_withdraw(self, num_serie):
         for withdraw in self.withdraws:
             if withdraw.num_serie == num_serie and withdraw.finish_time == None:
                 finish_time = int(datetime.now().timestamp() * 1000)
                 withdraw.finish_time = finish_time
-                self.set_notebook_is_active(num_serie, False)
+                for notebook in self.notebooks:
+                    if notebook.num_serie == num_serie:
+                        notebook.isActive = False
                 return withdraw
         return None
     

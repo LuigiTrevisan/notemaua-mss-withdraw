@@ -51,13 +51,6 @@ class Test_WithdrawRepositoryMock:
         assert withdraw.finish_time == None
         assert len(repo.withdraws) == len_before + 1
         
-    def test_set_notebook_is_active(self):
-        repo = WithdrawRepositoryMock()
-        num_serie = "34038"
-        is_active = False
-        repo.set_notebook_is_active(num_serie, is_active)
-        assert repo.notebooks[3].isActive == is_active
-        
     def test_finish_withdraw(self):
         repo = WithdrawRepositoryMock()
         num_serie = repo.withdraws[1].num_serie
