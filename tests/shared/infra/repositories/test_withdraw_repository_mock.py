@@ -72,3 +72,13 @@ class Test_WithdrawRepositoryMock:
         assert type(notebooks[1]) == tuple
         assert type(notebooks[1][0]) == Notebook
         assert type(notebooks[1][1]) == list
+        
+    def test_create_notebook(self):
+        repo = WithdrawRepositoryMock()
+        notebook = Notebook(num_serie="34139", isActive=False)
+        len_before = len(repo.notebooks)
+        notebook = repo.create_notebook(notebook)
+        assert notebook.num_serie == "34139"
+        assert notebook.isActive == False
+        assert len(repo.notebooks) == len_before + 1
+        assert repo.notebooks[-1] == notebook

@@ -88,3 +88,10 @@ class WithdrawRepositoryMock(IWithdrawRepository):
             withdraws = self.get_withdraws_by_num_serie(notebook.num_serie)
             notebooks.append((notebook, withdraws))
         return notebooks
+    
+    def create_notebook(self, notebook):
+        for notebook_ in self.notebooks:
+            if notebook_.num_serie == notebook.num_serie:
+                return None
+        self.notebooks.append(notebook)
+        return notebook

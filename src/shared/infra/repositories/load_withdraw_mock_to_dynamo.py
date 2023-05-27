@@ -70,9 +70,16 @@ def load_mock_to_local_dynamo():
         count += 1
         print(withdraw)
     print(f'{count} withdraws loaded!\n')
+    count = 0
+    for notebook in repo_mock.notebooks:
+        print(f'Loading notebook {notebook.num_serie}...')
+        repo_dynamo.create_notebook(notebook=notebook)
+        count += 1
+        print(notebook)
+    print(f'{count} notebooks loaded!\n')
 
     print('Done!')
 
 if __name__ == '__main__':
-    # setup_dynamo_table()
+    setup_dynamo_table()
     load_mock_to_local_dynamo()

@@ -1,22 +1,33 @@
 from datetime import datetime
 import random
+from src.shared.domain.entities.notebook import Notebook
 from src.shared.domain.repositories.withdraw_repository_interface import IWithdrawRepository
 from src.shared.domain.entities.withdraw import Withdraw
 from src.shared.environments import Environments
+from src.shared.infra.dto.notebook_dynamo_dto import NotebookDynamoDTO
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
 from src.shared.infra.dto.withdraw_dynamo_dto import WithdrawDynamoDTO
 
 class WithdrawRepositoryDynamo(IWithdrawRepository):
+    
     @staticmethod
-    def partition_key_format(withdraw: Withdraw) -> str:
+    def notebook_partition_key_format(notebook: Notebook) -> str:
+        return f'{notebook.num_serie}'
+    
+    @staticmethod
+    def notebook_sort_key_format(notebook: Notebook) -> str:
+        return f'notebook#{notebook.num_serie}'
+    
+    @staticmethod
+    def withdraw_partition_key_format(withdraw: Withdraw) -> str:
         return f'{withdraw.num_serie}'
     
     @staticmethod
-    def sort_key_format(withdraw: Withdraw) -> str:
+    def withdraw_sort_key_format(withdraw: Withdraw) -> str:
         return f'withdraw#{withdraw.email}#{withdraw.withdraw_id}'
     
     @staticmethod
-    def gsi1_partition_key_format(withdraw: Withdraw) -> str:
+    def gsi1_withdraw_partition_key_format(withdraw: Withdraw) -> str:
         return f'withdraw#{withdraw.email}'
     
     def __init__(self):
@@ -35,9 +46,13 @@ class WithdrawRepositoryDynamo(IWithdrawRepository):
         withdraw_id = random.randint(0, 999999999)
         withdraw = Withdraw(withdraw_id=withdraw_id, email=email, num_serie=num_serie, withdraw_time=withdraw_time, finish_time=None)
         item = WithdrawDynamoDTO.from_entity(withdraw).to_dynamo()
-        item[self.dynamo.gsi_partition_key] = self.gsi1_partition_key_format(withdraw)
+        item[self.dynamo.gsi_partition_key] = self.gsi1_withdraw_partition_key_format(withdraw)
         
-        resp = self.dynamo.put_item(item=item, partition_key=self.partition_key_format(withdraw), sort_key=self.sort_key_format(withdraw))
+        resp = self.dynamo.put_item(item=item, partition_key=self.withdraw_partition_key_format(withdraw), sort_key=self.withdraw_sort_key_format(withdraw))
         
         return withdraw        
-        
+    
+    def create_notebook(self, notebook: Notebook) -> Notebook:
+        item = NotebookDynamoDTO.from_entity(notebook).to_dynamo()
+        resp = self.dynamo.put_item(item=item, partition_key=self.notebook_partition_key_format(notebook), sort_key=self.notebook_sort_key_format(notebook))
+        return notebook

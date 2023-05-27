@@ -44,6 +44,13 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
+    def create_notebook(self, notebook):
+        '''
+        If notebook with num_serie exists, return None
+        else create notebook and return it
+        '''
+        pass
+    
     def finish_withdraw(self, num_serie):
         '''
         If withdraw with num_serie exists, finish withdraw and return it
