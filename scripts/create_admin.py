@@ -1,6 +1,8 @@
 import boto3
+
+from src.shared.environments import Environments
 client = boto3.client('cognito-idp')
-user_pool_id = "sa-east-1_cELM9XDrE"
+user_pool_id = Environments.get_envs().user_pool_id
 
 if __name__ == "__main__":
     
