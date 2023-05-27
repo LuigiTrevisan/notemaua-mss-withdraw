@@ -52,3 +52,9 @@ class Withdraw(abc.ABC):
         if time < 1641006000000:
             return False
         return True
+    
+    def __repr__(self):
+        return f"Withdraw(withdraw_id={self.withdraw_id}, num_serie={self.num_serie}, email={self.email}, withdraw_time={self.withdraw_time}, finish_time={self.finish_time})"
+    
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__

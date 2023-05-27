@@ -16,12 +16,6 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
-    def set_notebook_is_active(self, num_serie, is_active):
-        '''
-        If notebook with num_serie exists, set Notebook.isActive to is_active
-        '''
-        pass
-    
     def get_all_notebooks(self):
         '''
         Return all withdraws
@@ -42,11 +36,18 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
-    def create_withdraw(self, num_serie, email):
+    def create_withdraw(self, withdraw):
         '''
         If notebook exists and isActive == False and user exists, create withdraw and return it
-        set Notebook.isActive to True
         set withdraw_time to current time
+        set Notebook.isActive to True
+        '''
+        pass
+    
+    def create_notebook(self, notebook):
+        '''
+        If notebook with num_serie exists, return None
+        else create notebook and return it
         '''
         pass
     

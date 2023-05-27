@@ -43,20 +43,14 @@ class Test_WithdrawRepositoryMock:
         num_serie = "34139"
         email = "22.01102-0@maua.br"
         len_before = len(repo.withdraws)
-        withdraw = repo.create_withdraw(num_serie, email)
-        assert withdraw.withdraw_id == len(repo.withdraws)
+        withdraw = Withdraw(withdraw_id=len_before, num_serie=num_serie, email=email, withdraw_time=int(datetime.now().timestamp() * 1000))
+        repo.create_withdraw(withdraw)
+        assert withdraw.withdraw_id == len_before
         assert withdraw.num_serie == num_serie
         assert withdraw.email == email
         assert withdraw.withdraw_time == int(datetime.now().timestamp() * 1000)
         assert withdraw.finish_time == None
         assert len(repo.withdraws) == len_before + 1
-        
-    def test_set_notebook_is_active(self):
-        repo = WithdrawRepositoryMock()
-        num_serie = "34038"
-        is_active = False
-        repo.set_notebook_is_active(num_serie, is_active)
-        assert repo.notebooks[3].isActive == is_active
         
     def test_finish_withdraw(self):
         repo = WithdrawRepositoryMock()
@@ -79,3 +73,13 @@ class Test_WithdrawRepositoryMock:
         assert type(notebooks[1]) == tuple
         assert type(notebooks[1][0]) == Notebook
         assert type(notebooks[1][1]) == list
+        
+    def test_create_notebook(self):
+        repo = WithdrawRepositoryMock()
+        notebook = Notebook(num_serie="34139", isActive=False)
+        len_before = len(repo.notebooks)
+        notebook = repo.create_notebook(notebook)
+        assert notebook.num_serie == "34139"
+        assert notebook.isActive == False
+        assert len(repo.notebooks) == len_before + 1
+        assert repo.notebooks[-1] == notebook
