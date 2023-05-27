@@ -19,11 +19,12 @@ class UserCognitoDTO:
         
         custom_prefix = "custom:"
         user_data = {user_attribute["Name"].removeprefix(custom_prefix): user_attribute["Value"] for user_attribute in cognito_user["Attributes"]}
-        
+        ra = user_data["ra"].replace("-", "")
+        ra = ra.replace(".", "")
         return UserCognitoDTO(
             name=user_data["name"],
             email=user_data["email"],
-            ra=user_data["ra"],
+            ra=ra,
             role=ROLE(user_data["role"])
         )
         

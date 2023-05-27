@@ -28,6 +28,7 @@ class Environments:
     dynamo_partition_key: str
     dynamo_sort_key: str
     cloud_front_distribution_domain: str
+    user_pool_id: str
 
     def _configure_local(self):
         from dotenv import load_dotenv
@@ -49,6 +50,7 @@ class Environments:
             self.dynamo_sort_key = "SK"
             self.dynamo_gsi_partition_key = "GSI1-PK"
             self.cloud_front_distribution_domain = "https://d3q9q9q9q9q9q9.cloudfront.net"
+            self.user_pool_id = "sa-east-1_cELM9XDrE"
 
         else:
             self.s3_bucket_name = os.environ.get("S3_BUCKET_NAME")
@@ -59,6 +61,7 @@ class Environments:
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
             self.dynamo_gsi_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")
             self.cloud_front_distribution_domain = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN")
+            self.user_pool_id = os.environ.get("USER_POOL_ID")
 
     @staticmethod
     def get_withdraw_repo() -> IWithdrawRepository:
