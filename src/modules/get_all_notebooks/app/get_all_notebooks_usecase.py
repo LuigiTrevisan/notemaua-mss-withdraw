@@ -1,15 +1,22 @@
 from typing import List
 
 from src.shared.domain.entities.notebook import Notebook
+from src.shared.domain.entities.user import User
 from src.shared.domain.entities.withdraw import Withdraw
+from src.shared.domain.enums.role import ROLE
 from src.shared.domain.repositories.withdraw_repository_interface import IWithdrawRepository
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction
 
 class GetAllNotebooksUsecase:
     
     def __init__(self, repo: IWithdrawRepository):
         self.repo = repo
         
-    def __call__(self) -> List[tuple[Notebook, List[Withdraw]]]:
+    def __call__(self, user: User) -> List[tuple[Notebook, List[Withdraw]]]:
+        
+        if user.role not in [ROLE.ADMIN, ROLE.EMPLOYEE]:
+            raise ForbiddenAction("user")
+        
         notebooks = self.repo.get_all_notebooks()
         active_withdraws = []
         for notebook, withdraws in notebooks:

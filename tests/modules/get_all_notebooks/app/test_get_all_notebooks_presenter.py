@@ -9,6 +9,34 @@ class Test_GetAllNotebooksPresenter:
             "httpMethod": "GET",
             "path": "/notebooks",
             "queryStringParameters": {},
+            "requestContext": {
+                "accountId": "123456789012",
+                "apiId": "<urlid>",
+                "authentication": None,
+                "authorizer": {
+                    "claims" : {
+                        "sub" : "e2d865b1-e0c3-427e-866a-efa4e72e20f9",
+                        "name" : "Arthur Trevisan",
+                        "email" : "arthur@maua.br",
+                        "custom:role" : "EMPLOYEE",
+                        "custom:ra" : None
+                    }
+                },
+                "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
+                "domainPrefix": "<url-id>",
+                "external_interfaces": {
+                    "method": "POST",
+                    "path": "/my/path",
+                    "protocol": "HTTP/1.1",
+                    "sourceIp": "123.123.123.123",
+                    "userAgent": "agent"
+                },
+                "requestId": "id",
+                "routeKey": "$default",
+                "stage": "$default",
+                "time": "12/Mar/2020:19:03:58 +0000",
+                "timeEpoch": 1583348638390
+            },  
             "headers": {
                 "Accept": "*/*",
                 "Accept-Encoding": "gzip, deflate, br",
