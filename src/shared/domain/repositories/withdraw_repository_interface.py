@@ -2,13 +2,6 @@ from abc import ABC, abstractmethod
 
 class IWithdrawRepository(ABC):
     
-    def get_user_by_email(self, email):
-        '''
-        If user with email exists, return User
-        else return None
-        '''
-        pass
-    
     def get_notebook(self, num_serie):
         '''
         If notebook with num_serie exists, return Notebook

@@ -1,6 +1,7 @@
 import enum
 from enum import Enum
 import os
+from src.shared.domain.repositories.user_repository_interface import IUserRepository
 
 from src.shared.domain.repositories.withdraw_repository_interface import IWithdrawRepository
 
@@ -70,6 +71,17 @@ class Environments:
         else:
             raise Exception("No repository found for this stage")
 
+    @staticmethod
+    def get_user_repo() -> IUserRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from src.shared.infra.repositories.user_repository_mock import UserRepositoryMock
+            return UserRepositoryMock
+        # elif Environments.get_envs().stage == STAGE.PROD:
+        #     from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
+        #     return UserRepositoryDynamo
+        else:
+            raise Exception("No repository found for this stage")
+        
     @staticmethod
     def get_envs() -> "Environments":
         """

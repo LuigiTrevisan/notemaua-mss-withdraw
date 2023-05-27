@@ -1,13 +1,15 @@
 from src.modules.create_withdraw.app.create_withdraw_controller import CreateWithdrawController
 from src.modules.create_withdraw.app.create_withdraw_usecase import CreateWithdrawUsecase
 from src.shared.helpers.external_interfaces.http_models import HttpRequest
+from src.shared.infra.repositories.user_repository_mock import UserRepositoryMock
 from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
 
 
 class Test_CreateWithdrawController:
     def test_create_withdraw_controller(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={
             'num_serie':'34035',
@@ -23,8 +25,9 @@ class Test_CreateWithdrawController:
         assert response.body['withdraw']['finish_time'] is None
         
     def test_create_withdraw_controller_missing_num_serie(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={'email':'arthur@maua.br'})
         
@@ -33,8 +36,9 @@ class Test_CreateWithdrawController:
         assert response.body == 'Field num_serie is missing'
         
     def test_create_withdraw_controller_missing_email(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={'num_serie':'34035'})
         
@@ -43,8 +47,9 @@ class Test_CreateWithdrawController:
         assert response.body == 'Field email is missing'
         
     def test_create_withdraw_controller_wrong_type_num_serie(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={'num_serie':34035, 'email':'arthur@maua.br'})
         
@@ -53,8 +58,9 @@ class Test_CreateWithdrawController:
         assert response.body == "Field num_serie isn't in the right type.\n Received: <class 'int'>.\n Expected: str"
         
     def test_create_withdraw_controller_wrong_type_email(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={'num_serie':'34035', 'email':123})
         
@@ -63,8 +69,9 @@ class Test_CreateWithdrawController:
         assert response.body == "Field email isn't in the right type.\n Received: <class 'int'>.\n Expected: str"
         
     def test_create_withdraw_controller_email_already_with_withdraw(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={'num_serie':'34035', 'email':'22.01102-0@maua.br'})
                               
@@ -73,8 +80,9 @@ class Test_CreateWithdrawController:
         assert response.body == 'The item alredy exists for this email'
         
     def test_create_withdraw_controller_email_not_found(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={'num_serie':'34035', 'email':'10.01483-0@maua.br'})	
         
@@ -83,8 +91,9 @@ class Test_CreateWithdrawController:
         assert response.body == 'No items found for email'
         
     def test_create_withdraw_controller_notebook_already_active(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={'num_serie':'34036', 'email':'arthur@maua.br'})
         
@@ -93,8 +102,9 @@ class Test_CreateWithdrawController:
         assert response.body == 'The item alredy exists for this num_serie'
         
     def test_create_withdraw_controller_notebook_not_found(self):
-        repo = WithdrawRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo)
+        repo_withdraw = WithdrawRepositoryMock()
+        repo_user = UserRepositoryMock()
+        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={'num_serie':'34034', 'email':'arthur@maua.br'})
         
