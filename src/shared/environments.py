@@ -68,9 +68,9 @@ class Environments:
         if Environments.get_envs().stage == STAGE.TEST:
             from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
             return WithdrawRepositoryMock
-        # elif Environments.get_envs().stage == STAGE.PROD:
-        #     from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
-        #     return UserRepositoryDynamo
+        elif Environments.get_envs().stage == STAGE.PROD:
+            from src.shared.infra.repositories.withdraw_repository_dynamo import WithdrawRepositoryDynamo
+            return WithdrawRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
 
@@ -79,9 +79,9 @@ class Environments:
         if Environments.get_envs().stage == STAGE.TEST:
             from src.shared.infra.repositories.user_repository_mock import UserRepositoryMock
             return UserRepositoryMock
-        # elif Environments.get_envs().stage == STAGE.PROD:
-        #     from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
-        #     return UserRepositoryDynamo
+        elif Environments.get_envs().stage == STAGE.PROD:
+            from src.shared.infra.repositories.user_repository_cognito import UserRepositoryCognito
+            return UserRepositoryCognito
         else:
             raise Exception("No repository found for this stage")
         
