@@ -61,13 +61,10 @@ class WithdrawRepositoryMock(IWithdrawRepository):
                 return user
         return None
     
-    def create_withdraw(self, num_serie, email):
-        withdraw_time = int(datetime.now().timestamp() * 1000)
-        withdraw_id = len(self.withdraws) + 1
-        withdraw = Withdraw(withdraw_id=withdraw_id, email=email, num_serie=num_serie, withdraw_time=withdraw_time, finish_time=None)
+    def create_withdraw(self, withdraw):
         self.withdraws.append(withdraw)
         for notebook in self.notebooks:
-            if notebook.num_serie == num_serie:
+            if notebook.num_serie == withdraw.num_serie:
                 notebook.isActive = True
         return withdraw
                 

@@ -43,8 +43,9 @@ class Test_WithdrawRepositoryMock:
         num_serie = "34139"
         email = "22.01102-0@maua.br"
         len_before = len(repo.withdraws)
-        withdraw = repo.create_withdraw(num_serie, email)
-        assert withdraw.withdraw_id == len(repo.withdraws)
+        withdraw = Withdraw(withdraw_id=len_before, num_serie=num_serie, email=email, withdraw_time=int(datetime.now().timestamp() * 1000))
+        repo.create_withdraw(withdraw)
+        assert withdraw.withdraw_id == len_before
         assert withdraw.num_serie == num_serie
         assert withdraw.email == email
         assert withdraw.withdraw_time == int(datetime.now().timestamp() * 1000)

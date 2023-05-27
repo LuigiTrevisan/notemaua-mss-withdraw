@@ -41,13 +41,9 @@ class WithdrawRepositoryDynamo(IWithdrawRepository):
             )
         print(f"Variáveis:\n{Environments.get_envs().__dict__}")
         
-    def create_withdraw(self, num_serie: str, email: str) -> Withdraw:
-        withdraw_time = int(datetime.now().timestamp() * 1000)
-        withdraw_id = random.randint(0, 999999999)
-        withdraw = Withdraw(withdraw_id=withdraw_id, email=email, num_serie=num_serie, withdraw_time=withdraw_time, finish_time=None)
+    def create_withdraw(self, withdraw: Withdraw) -> Withdraw:
         item = WithdrawDynamoDTO.from_entity(withdraw).to_dynamo()
         item[self.dynamo.gsi_partition_key] = self.gsi1_withdraw_partition_key_format(withdraw)
-        
         resp = self.dynamo.put_item(item=item, partition_key=self.withdraw_partition_key_format(withdraw), sort_key=self.withdraw_sort_key_format(withdraw))
         
         return withdraw        
