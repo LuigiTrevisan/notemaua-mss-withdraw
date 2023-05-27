@@ -30,3 +30,8 @@ class Notebook(abc.ABC):
         
         return True
     
+    def __repr__(self):
+        return f"Notebook(num_serie={self.num_serie}, isActive={self.isActive})"
+    
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
