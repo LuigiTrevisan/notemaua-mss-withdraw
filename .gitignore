@@ -135,3 +135,4 @@ dmypy.json
 /.idea/
 /iac/local/docker
 /iac/lambda_layer_out_temp
+/scripts
