@@ -47,7 +47,7 @@ class WithdrawViewmodel:
     finish_time: int = None
     
     def __init__(self, withdraw: Withdraw):
-        if withdraw != None:
+        if withdraw is not None:
             self.withdraw_id = withdraw.withdraw_id
             self.num_serie = withdraw.num_serie
             self.email = withdraw.email
