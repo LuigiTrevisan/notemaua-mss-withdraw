@@ -13,14 +13,20 @@ class Test_CreateWithdrawController:
         controller = CreateWithdrawController(usecase)
         request = HttpRequest(body={
             'num_serie':'34035',
-            'email':'arthur@maua.br'
+            'requester_user' : {
+                "sub" : "123456789",
+                "email" : repo_user.users[6].email,
+                "name" : repo_user.users[6].name,
+                "custom:ra" : repo_user.users[6].ra,
+                "custom:role" : repo_user.users[6].role.value
+            }
         })
         
         response = controller(request)
         assert response.status_code == 201
         assert response.body['message'] == 'the withdraw was created'
         assert response.body['withdraw']['num_serie'] == '34035'
-        assert response.body['withdraw']['email'] == 'arthur@maua.br'
+        assert response.body['withdraw']['email'] == repo_user.users[6].email
         assert response.body['withdraw']['withdraw_time'] is not None
         assert response.body['withdraw']['finish_time'] is None
         
@@ -29,51 +35,47 @@ class Test_CreateWithdrawController:
         repo_user = UserRepositoryMock()
         usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'email':'arthur@maua.br'})
+        request = HttpRequest(body={'requester_user' : {
+                "sub" : "123456789",
+                "email" : repo_user.users[6].email,
+                "name" : repo_user.users[6].name,
+                "custom:ra" : repo_user.users[6].ra,
+                "custom:role" : repo_user.users[6].role.value
+            }})
         
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field num_serie is missing'
-        
-    def test_create_withdraw_controller_missing_email(self):
-        repo_withdraw = WithdrawRepositoryMock()
-        repo_user = UserRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
-        controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'num_serie':'34035'})
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field email is missing'
         
     def test_create_withdraw_controller_wrong_type_num_serie(self):
         repo_withdraw = WithdrawRepositoryMock()
         repo_user = UserRepositoryMock()
         usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'num_serie':34035, 'email':'arthur@maua.br'})
+        request = HttpRequest(body={'num_serie':34035, 'requester_user' : {
+                "sub" : "123456789",
+                "email" : repo_user.users[6].email,
+                "name" : repo_user.users[6].name,
+                "custom:ra" : repo_user.users[6].ra,
+                "custom:role" : repo_user.users[6].role.value
+            }})
         
         response = controller(request)
         assert response.status_code == 400
         assert response.body == "Field num_serie isn't in the right type.\n Received: <class 'int'>.\n Expected: str"
-        
-    def test_create_withdraw_controller_wrong_type_email(self):
-        repo_withdraw = WithdrawRepositoryMock()
-        repo_user = UserRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
-        controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'num_serie':'34035', 'email':123})
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == "Field email isn't in the right type.\n Received: <class 'int'>.\n Expected: str"
         
     def test_create_withdraw_controller_email_already_with_withdraw(self):
         repo_withdraw = WithdrawRepositoryMock()
         repo_user = UserRepositoryMock()
         usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'num_serie':'34035', 'email':'22.01102-0@maua.br'})
+        request = HttpRequest(body={'num_serie':'34035', 'requester_user' : {
+                "sub" : "123456789",
+                "email" : repo_user.users[0].email,
+                "name" : repo_user.users[0].name,
+                "custom:ra" : repo_user.users[0].ra,
+                "custom:role" : repo_user.users[0].role.value
+            }})
                               
         response = controller(request)
         assert response.status_code == 400
@@ -84,7 +86,13 @@ class Test_CreateWithdrawController:
         repo_user = UserRepositoryMock()
         usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'num_serie':'34035', 'email':'10.01483-0@maua.br'})	
+        request = HttpRequest(body={'num_serie':'34035', 'requester_user' : {
+                "sub" : "123456789",
+                "email" : "huguinho@maua.br",
+                "name" : repo_user.users[6].name,
+                "custom:ra" : repo_user.users[6].ra,
+                "custom:role" : repo_user.users[6].role.value
+            }})	
         
         response = controller(request)
         assert response.status_code == 404
@@ -95,7 +103,13 @@ class Test_CreateWithdrawController:
         repo_user = UserRepositoryMock()
         usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'num_serie':'34036', 'email':'arthur@maua.br'})
+        request = HttpRequest(body={'num_serie':'34036', 'requester_user' : {
+                "sub" : "123456789",
+                "email" : repo_user.users[6].email,
+                "name" : repo_user.users[6].name,
+                "custom:ra" : repo_user.users[6].ra,
+                "custom:role" : repo_user.users[6].role.value
+            }})
         
         response = controller(request)
         assert response.status_code == 400
@@ -106,7 +120,13 @@ class Test_CreateWithdrawController:
         repo_user = UserRepositoryMock()
         usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
         controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'num_serie':'34034', 'email':'arthur@maua.br'})
+        request = HttpRequest(body={'num_serie':'34034', 'requester_user' : {
+                "sub" : "123456789",
+                "email" : repo_user.users[6].email,
+                "name" : repo_user.users[6].name,
+                "custom:ra" : repo_user.users[6].ra,
+                "custom:role" : repo_user.users[6].role.value
+            }})
         
         response = controller(request)
         assert response.status_code == 404

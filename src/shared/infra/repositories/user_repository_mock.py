@@ -15,6 +15,7 @@ class UserRepositoryMock(IUserRepository):
             User(ra=None, name="Rony Rustico", email="rony@maua.br", role=ROLE.EMPLOYEE),
             User(ra=None, name="Arthur Television", email="arthur@maua.br", role=ROLE.EMPLOYEE),
             User(ra=None, name="Pana Aula", email="pana@maua.br", role=ROLE.ADMIN),
+            User(ra="22006939", name="Jean L", email="22.00693-9@maua.br", role=ROLE.STUDENT)
         ]
         
         

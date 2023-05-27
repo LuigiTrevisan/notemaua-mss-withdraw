@@ -6,6 +6,7 @@ from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFoun
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError, NotFound
 from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO 
 
 
 class CreateWithdrawController:
@@ -16,20 +17,20 @@ class CreateWithdrawController:
         
     def __call__(self, request: IRequest) -> IResponse:
         try:
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user')).to_entity()
+            
             if request.data.get('num_serie') is None:
                 raise MissingParameters('num_serie')
-            if request.data.get('email') is None:
-                raise MissingParameters('email')
             
             if type(request.data.get('num_serie')) is not str:
                 raise WrongTypeParameter('num_serie', 'str', type(request.data.get('num_serie')))
             
-            if type(request.data.get('email')) is not str:
-                raise WrongTypeParameter('email', 'str', type(request.data.get('email')))
-            
             withdraw = self.usecase(
                 num_serie=request.data.get('num_serie'),
-                email=request.data.get('email')
+                email=requester_user.email
             )
             viewmodel = CreateWithdrawViewmodel(withdraw=withdraw).to_dict()
             return Created(viewmodel)
