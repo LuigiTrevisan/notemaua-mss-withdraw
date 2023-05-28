@@ -8,6 +8,7 @@ from constructs import Construct
 from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 from dotenv import load_dotenv
 from .lambda_stack import LambdaStack
+from .dynamo_stack import DynamoStack
 
 load_dotenv()
 class IacStack(Stack):
@@ -37,11 +38,16 @@ class IacStack(Stack):
             }
         )
         
+        self.dynamo_stack = DynamoStack(self)
+        
         ENVIRONMENT_VARIABLES = {
             "STAGE": "TEST",
-            # "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table.table_name,
-            # "DYNAMO_PARTITION_KEY": self.dynamo_stack.partition_key_name,
-            # "DYNAMO_SORT_KEY": self.dynamo_stack.sort_key_name,
+            "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table.table_name,
+            "DYNAMO_PARTITION_KEY": "PK",
+            "DYNAMO_SORT_KEY": "SK",
+            "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
+            "USER_POOL_ID":  self.user_pool_id,
+            "USER_POOL_NAME" : self.user_pool_name,
         }
         
         authorizer = CognitoUserPoolsAuthorizer(self, f"notemaua_cognito_stack",
@@ -50,3 +56,6 @@ class IacStack(Stack):
 
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
                                         environment_variables=ENVIRONMENT_VARIABLES, authorizer=authorizer)
+
+        for f in self.lambda_stack.functions_that_need_dynamo_permissions:
+            self.dynamo_stack.dynamo_table.grant_read_write_data(f)

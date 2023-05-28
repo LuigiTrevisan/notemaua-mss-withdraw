@@ -60,3 +60,10 @@ class LambdaStack(Construct):
             environment_variables=environment_variables,
             authorizer=authorizer
         )
+        
+        self.functions_that_need_dynamo_permissions = [
+            self.get_all_notebooks_function,
+            self.create_withdraw_function,
+            self.finish_withdraw_function
+        ]
+        
