@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 from src.shared.domain.entities.notebook import Notebook
 from src.shared.domain.entities.user import User
@@ -12,7 +12,7 @@ class GetAllNotebooksUsecase:
     def __init__(self, repo: IWithdrawRepository):
         self.repo = repo
         
-    def __call__(self, user: User) -> List[tuple[Notebook, List[Withdraw]]]:
+    def __call__(self, user: User) -> List[Tuple[Notebook, List[Withdraw]]]:
         
         if user.role not in [ROLE.ADMIN, ROLE.EMPLOYEE]:
             raise ForbiddenAction("user")

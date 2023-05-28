@@ -52,15 +52,15 @@ class WithdrawRepositoryMock(IWithdrawRepository):
                 notebook.isActive = True
         return withdraw
                 
-    def finish_withdraw(self, num_serie):
-        for withdraw in self.withdraws:
-            if withdraw.num_serie == num_serie and withdraw.finish_time == None:
+    def finish_withdraw(self, withdraw):
+        for w in self.withdraws:
+            if w.num_serie == withdraw.num_serie and w.finish_time == None:
                 finish_time = int(datetime.now().timestamp() * 1000)
-                withdraw.finish_time = finish_time
+                w.finish_time = finish_time
                 for notebook in self.notebooks:
-                    if notebook.num_serie == num_serie:
+                    if notebook.num_serie == withdraw.num_serie:
                         notebook.isActive = False
-                return withdraw
+                return w
         return None
     
     def get_all_notebooks(self):
@@ -76,3 +76,9 @@ class WithdrawRepositoryMock(IWithdrawRepository):
                 return None
         self.notebooks.append(notebook)
         return notebook
+    
+    def get_active_withdraw(self, num_serie):
+        for withdraw in self.withdraws:
+            if withdraw.num_serie == num_serie and withdraw.finish_time == None:
+                return withdraw
+        return None

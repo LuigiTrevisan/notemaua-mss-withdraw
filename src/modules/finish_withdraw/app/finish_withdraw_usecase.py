@@ -13,7 +13,8 @@ class FinishWithdrawUsecase:
         if user.role not in [ROLE.EMPLOYEE, ROLE.ADMIN]:
             raise ForbiddenAction("user")
         
-        withdraw = self.repo.finish_withdraw(num_serie)
+        withdraw = self.repo.get_active_withdraw(num_serie)
         if withdraw is None:
             raise NoItemsFound("num_serie")
-        return withdraw
+        
+        return self.repo.finish_withdraw(withdraw)

@@ -19,7 +19,6 @@ class NotebookDynamoDTO:
         return {
             "entity" : "notebook",
             "num_serie": self.num_serie,
-            "isActive": self.isActive
         }
         
     @staticmethod

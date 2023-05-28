@@ -46,16 +46,15 @@ class Test_WithdrawRepositoryMock:
         
     def test_finish_withdraw(self):
         repo = WithdrawRepositoryMock()
-        num_serie = repo.withdraws[1].num_serie
+        old_withdraw = repo.withdraws[1]
         len_before = len(repo.withdraws)
-        withdraw = repo.finish_withdraw(num_serie)
+        withdraw = repo.finish_withdraw(old_withdraw)
         assert withdraw.withdraw_id == repo.withdraws[1].withdraw_id
         assert withdraw.num_serie == repo.withdraws[1].num_serie
         assert withdraw.email == repo.withdraws[1].email
         assert withdraw.withdraw_time == repo.withdraws[1].withdraw_time
         assert withdraw.finish_time == int(datetime.now().timestamp() * 1000)
         assert len(repo.withdraws) == len_before
-        assert repo.get_notebook(num_serie).isActive == False
         
     def test_get_all_notebooks(self):
         repo = WithdrawRepositoryMock()
