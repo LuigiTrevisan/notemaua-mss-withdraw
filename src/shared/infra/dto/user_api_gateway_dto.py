@@ -24,9 +24,11 @@ class UserApiGatewayDTO:
         )
         
     def to_entity(self) -> User:
+        ra = self.ra.replace("-", "")
+        ra = ra.replace(".", "")
         return User(
             name=self.name,
-            ra=self.ra,
+            ra=ra,
             email=self.email,
             role=self.role
         )

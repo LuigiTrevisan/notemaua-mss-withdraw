@@ -3,14 +3,14 @@ from aws_cdk import (
     NestedStack, Duration
 )
 from constructs import Construct
-from aws_cdk.aws_apigateway import Resource, LambdaIntegration
+from aws_cdk.aws_apigateway import Resource, LambdaIntegration, CognitoUserPoolsAuthorizer
 
 
 class LambdaStack(Construct):
 
     functions_that_need_dynamo_permissions = []
 
-    def create_lambda_api_gateway_integration(self, module_name: str, method: str, api_resource: Resource, environment_variables: dict = {"STAGE": "TEST"}):
+    def create_lambda_api_gateway_integration(self, module_name: str, method: str, api_resource: Resource, environment_variables: dict = {"STAGE": "TEST"}, authorizer = None):
         function = lambda_.Function(
             self, module_name.title(),
             code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
@@ -24,11 +24,12 @@ class LambdaStack(Construct):
 
         api_resource.add_resource(module_name.replace("_", "-")).add_method(method,
                                                                             integration=LambdaIntegration(
-                                                                                function))
+                                                                                function),
+                                                                            authorizer=authorizer)
 
         return function
 
-    def __init__(self, scope: Construct, api_gateway_resource: Resource, environment_variables: dict) -> None:
+    def __init__(self, scope: Construct, api_gateway_resource: Resource, environment_variables: dict, authorizer: CognitoUserPoolsAuthorizer) -> None:
         super().__init__(scope, "Notemaua_Lambda")
 
         self.lambda_layer = lambda_.LayerVersion(self, "Notemaua_Layer",
@@ -40,19 +41,22 @@ class LambdaStack(Construct):
             module_name="get_all_notebooks",
             method="GET",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.create_withdraw_function = self.create_lambda_api_gateway_integration(
             module_name="create_withdraw",
             method="POST",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.finish_withdraw_function = self.create_lambda_api_gateway_integration(
             module_name="finish_withdraw",
             method="PUT",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
