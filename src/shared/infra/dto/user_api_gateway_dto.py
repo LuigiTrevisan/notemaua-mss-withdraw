@@ -24,8 +24,11 @@ class UserApiGatewayDTO:
         )
         
     def to_entity(self) -> User:
-        ra = self.ra.replace("-", "")
-        ra = ra.replace(".", "")
+        if self.ra is not None:
+            ra = self.ra.replace("-", "")
+            ra = ra.replace(".", "")
+        else:
+            ra = None
         return User(
             name=self.name,
             ra=ra,

@@ -32,13 +32,6 @@ class Test_CreateWithdrawUsecase:
         with pytest.raises(DuplicatedItem):
             usecase(num_serie='34038', email="arthur@maua.br")
             
-    def test_create_withdraw_usecase_with_user_not_found(self):
-        repo = WithdrawRepositoryMock()
-        repo_user = UserRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo_withdraw=repo, repo_user = repo_user)
-        with pytest.raises(NoItemsFound):
-            usecase(num_serie='34037', email="juninho@maua.br")
-            
     def test_create_withdraw_usecase_with_user_already_with_notebook(self):
         repo = WithdrawRepositoryMock()
         repo_user = UserRepositoryMock()

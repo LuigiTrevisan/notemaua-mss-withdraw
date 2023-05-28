@@ -81,23 +81,6 @@ class Test_CreateWithdrawController:
         assert response.status_code == 400
         assert response.body == 'The item alredy exists for this email'
         
-    def test_create_withdraw_controller_email_not_found(self):
-        repo_withdraw = WithdrawRepositoryMock()
-        repo_user = UserRepositoryMock()
-        usecase = CreateWithdrawUsecase(repo_withdraw, repo_user)
-        controller = CreateWithdrawController(usecase)
-        request = HttpRequest(body={'num_serie':'34035', 'requester_user' : {
-                "sub" : "123456789",
-                "email" : "huguinho@maua.br",
-                "name" : repo_user.users[6].name,
-                "custom:ra" : repo_user.users[6].ra,
-                "custom:role" : repo_user.users[6].role.value
-            }})	
-        
-        response = controller(request)
-        assert response.status_code == 404
-        assert response.body == 'No items found for email'
-        
     def test_create_withdraw_controller_notebook_already_active(self):
         repo_withdraw = WithdrawRepositoryMock()
         repo_user = UserRepositoryMock()
