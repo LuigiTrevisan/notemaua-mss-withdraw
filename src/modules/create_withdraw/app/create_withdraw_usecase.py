@@ -17,12 +17,7 @@ class CreateWithdrawUsecase:
         
         if notebook.isActive:
             raise DuplicatedItem('num_serie')
-        
-        user = self.repo_user.get_user_by_email(email)
-        if user is None:
-            raise NoItemsFound('email')
-        
-        
+
         withdraws = self.repo_withdraw.get_withdraws_by_email(email)
         for withdraw in withdraws:
             if withdraw.finish_time is None:
