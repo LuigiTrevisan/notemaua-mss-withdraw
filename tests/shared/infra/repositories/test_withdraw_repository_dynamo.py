@@ -63,3 +63,9 @@ class Test_WithdrawRepositoryDynamo:
             withdraw_time=1682611052153
         )
         new_withdraw = withdraw_repository_dynamo.finish_withdraw(withdraw)
+        
+    # @pytest.mark.skip(reason="can't test locally")
+    def test_withdraw_repository_dynamo_get_all_notebooks(self):
+        withdraw_repository_dynamo = WithdrawRepositoryDynamo()
+        notebooks = withdraw_repository_dynamo.get_all_notebooks()
+        assert True

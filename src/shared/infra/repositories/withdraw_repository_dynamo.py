@@ -105,3 +105,18 @@ class WithdrawRepositoryDynamo(IWithdrawRepository):
                 "finish_time": finish_time
             }
         )
+        
+    def get_all_notebooks(self):
+        response = self.dynamo.get_all_items()
+        notebooks = []
+        for i in range(len(response['Items'])):
+            if response['Items'][i]['entity'] == 'notebook':
+                notebook = NotebookDynamoDTO.from_dynamo(response['Items'][i]).to_entity()
+                j = i + 1
+                withdraws = []
+                while j < len(response['Items']) and response['Items'][j]['entity'] == 'withdraw':
+                    withdraws.append(WithdrawDynamoDTO.from_dynamo(response['Items'][j]).to_entity())
+                    j += 1
+                notebooks.append((notebook, withdraws))
+                
+        return notebooks
