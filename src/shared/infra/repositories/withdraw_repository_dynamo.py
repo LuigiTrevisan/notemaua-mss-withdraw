@@ -113,12 +113,16 @@ class WithdrawRepositoryDynamo(IWithdrawRepository):
         notebooks = []
         for i in range(len(response['Items'])):
             if response['Items'][i]['entity'] == 'notebook':
-                notebook = NotebookDynamoDTO.from_dynamo(response['Items'][i]).to_entity()
+                notebook_data = response['Items'][i]
+                notebook_data['isActive'] = False
                 j = i + 1
                 withdraws = []
                 while j < len(response['Items']) and response['Items'][j]['entity'] == 'withdraw':
                     withdraws.append(WithdrawDynamoDTO.from_dynamo(response['Items'][j]).to_entity())
+                    if response['Items'][j].get("finish_time") is None:
+                        notebook_data['isActive'] = True
                     j += 1
+                notebook = NotebookDynamoDTO.from_dynamo(notebook_data).to_entity()
                 notebooks.append((notebook, withdraws))
                 
         return notebooks

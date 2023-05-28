@@ -3,7 +3,7 @@ from src.shared.helpers.errors.domain_errors import EntityError
 
 class Notebook(abc.ABC):
     num_serie: str
-    isActive: bool = False
+    isActive: bool
     NUM_SERIE_LENGTH = 5
     
     def __init__(self, num_serie: str, isActive: bool = False):
@@ -11,8 +11,6 @@ class Notebook(abc.ABC):
             raise EntityError("num_serie")
         self.num_serie = num_serie
         
-        if isActive == None:
-            isActive = False
         if type(isActive) is not bool:
             raise EntityError("isActive")
         self.isActive = isActive

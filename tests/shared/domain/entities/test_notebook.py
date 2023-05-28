@@ -41,14 +41,6 @@ class Test_Notebook:
                 num_serie="3475",
                 isActive=True
             )
-            
-    def test_notebook_isActive_is_none(self):
-        notebook = Notebook(
-                num_serie="34756",
-                isActive=None
-            )
-        
-        assert notebook.isActive == False
         
     def test_notebook_isActive_not_bool(self):
         with pytest.raises(EntityError):

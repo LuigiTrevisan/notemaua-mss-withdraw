@@ -25,7 +25,7 @@ class NotebookDynamoDTO:
     def from_dynamo(notebook_data: dict) -> "NotebookDynamoDTO":
         return NotebookDynamoDTO(
             num_serie=notebook_data["num_serie"],
-            isActive=notebook_data["isActive"]
+            isActive=notebook_data.get("isActive")
         )
         
     def to_entity(self) -> Notebook:
