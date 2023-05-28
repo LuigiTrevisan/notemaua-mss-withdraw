@@ -18,7 +18,7 @@ class UserApiGatewayDTO:
     def from_api_gateway(user_data: dict) -> "UserApiGatewayDTO":
         return UserApiGatewayDTO(
             name=user_data["name"],
-            ra=user_data["custom:ra"],
+            ra=user_data.get("custom:ra"),
             email=user_data["email"],
             role=ROLE(user_data["custom:role"])
         )

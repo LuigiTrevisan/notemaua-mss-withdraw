@@ -13,7 +13,6 @@ class Test_NotebookDynamoDTO:
         assert notebook_dto.to_dynamo() == {
             "entity" : "notebook",
             "num_serie": "34036",
-            "isActive": True
         }
         
     def test_notebook_dynamo_dto_from_dynamo(self):
@@ -34,7 +33,6 @@ class Test_NotebookDynamoDTO:
         assert notebook_dto == {
             "entity" : "notebook",
             "num_serie": "34036",
-            "isActive": True
         }
         
     def test_notebook_dynamo_dto_from_dynamo_to_entity(self):

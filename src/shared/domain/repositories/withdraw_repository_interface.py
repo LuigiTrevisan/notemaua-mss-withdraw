@@ -44,11 +44,18 @@ class IWithdrawRepository(ABC):
         '''
         pass
     
-    def finish_withdraw(self, num_serie):
+    def finish_withdraw(self, withdraw):
         '''
         If withdraw with num_serie exists, finish withdraw and return it
         set Notebook.isActive to False
         set Withdraw.finish_time to current time
         get user and notebook and send them to withdraw history
+        '''
+        pass
+    
+    def get_active_withdraw(self, num_serie):
+        '''
+        If withdraw with num_serie exists and has no finish time, return withdraw
+        else return None
         '''
         pass

@@ -41,7 +41,7 @@ class IacStack(Stack):
         self.dynamo_stack = DynamoStack(self)
         
         ENVIRONMENT_VARIABLES = {
-            "STAGE": "TEST",
+            "STAGE": "PROD",
             "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table.table_name,
             "DYNAMO_PARTITION_KEY": "PK",
             "DYNAMO_SORT_KEY": "SK",

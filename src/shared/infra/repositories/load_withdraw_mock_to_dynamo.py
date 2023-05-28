@@ -66,7 +66,7 @@ def load_mock_to_local_dynamo():
     count = 0
     for withdraw in repo_mock.withdraws:
         print(f'Loading withdraw {withdraw.withdraw_id}...')
-        repo_dynamo.create_withdraw(num_serie=withdraw.num_serie, email=withdraw.email)
+        repo_dynamo.create_withdraw(withdraw=withdraw)
         count += 1
         print(withdraw)
     print(f'{count} withdraws loaded!\n')

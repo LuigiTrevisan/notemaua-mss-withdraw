@@ -6,13 +6,11 @@ class Notebook(abc.ABC):
     isActive: bool
     NUM_SERIE_LENGTH = 5
     
-    def __init__(self, num_serie: str, isActive: bool == False):
+    def __init__(self, num_serie: str, isActive: bool = False):
         if not Notebook.validate_num_serie(num_serie):
             raise EntityError("num_serie")
         self.num_serie = num_serie
         
-        if isActive == None:
-            isActive = False
         if type(isActive) is not bool:
             raise EntityError("isActive")
         self.isActive = isActive

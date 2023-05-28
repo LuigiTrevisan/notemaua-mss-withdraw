@@ -50,11 +50,11 @@ class WithdrawDynamoDTO:
         
     def to_entity(self) -> Withdraw:
         return Withdraw(
-            withdraw_id=self.withdraw_id,
+            withdraw_id=int(self.withdraw_id),
             num_serie=self.num_serie,
             email=self.email,
-            withdraw_time=self.withdraw_time,
-            finish_time=self.finish_time
+            withdraw_time=int(self.withdraw_time),
+            finish_time=int(self.finish_time) if self.finish_time is not None else None
         )
         
     def __repr__(self):

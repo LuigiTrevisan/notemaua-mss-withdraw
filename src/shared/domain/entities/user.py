@@ -40,11 +40,7 @@ class User(abc.ABC):
             if not ra.isdecimal():
                 return False
             if len(ra) != User.RA_LENGTH:
-                return False
-        else:
-            if ra is not None:
-                return False
-        
+                return False        
         return True    
     
     @staticmethod

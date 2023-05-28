@@ -18,7 +18,8 @@ class LambdaStack(Construct):
             runtime=lambda_.Runtime.PYTHON_3_9,
             layers=[self.lambda_layer],
             environment=environment_variables,
-            timeout=Duration.seconds(15)
+            timeout=Duration.seconds(15),
+            memory_size=256
         )
         
 
