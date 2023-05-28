@@ -3,10 +3,10 @@ from src.shared.helpers.errors.domain_errors import EntityError
 
 class Notebook(abc.ABC):
     num_serie: str
-    isActive: bool
+    isActive: bool = False
     NUM_SERIE_LENGTH = 5
     
-    def __init__(self, num_serie: str, isActive: bool == False):
+    def __init__(self, num_serie: str, isActive: bool = False):
         if not Notebook.validate_num_serie(num_serie):
             raise EntityError("num_serie")
         self.num_serie = num_serie
