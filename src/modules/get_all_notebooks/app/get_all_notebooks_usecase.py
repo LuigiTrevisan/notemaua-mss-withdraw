@@ -25,5 +25,5 @@ class GetAllNotebooksUsecase:
                     if withdraw.finish_time == None:
                         active_withdraws.append((notebook, [withdraw]))
             else:
-                active_withdraws.append((notebook, None))
+                active_withdraws.append((notebook, []))
         return active_withdraws

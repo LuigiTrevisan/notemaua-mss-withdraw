@@ -76,11 +76,11 @@ class WithdrawRepositoryDynamo(IWithdrawRepository):
         if response["Count"] == 0:
             return None
         notebook_data = response['Items'][0]
-        notebook_data['isActive'] == False
+        notebook_data['isActive'] = False
         if len(response['Items']) > 1:
             for item in response['Items'][1:]:
                 if item.get("finish_time") is None:
-                    notebook_data['isActive'] == True
+                    notebook_data['isActive'] = True
         notebook = NotebookDynamoDTO.from_dynamo(notebook_data).to_entity()
         
         return notebook
