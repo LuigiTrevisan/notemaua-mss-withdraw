@@ -15,6 +15,6 @@ class FinishWithdrawUsecase:
         
         withdraw = self.repo.get_active_withdraw(num_serie)
         if withdraw is None:
-            raise NoItemsFound("num_serie")
+            raise NoItemsFound("withdraw")
         
         return self.repo.finish_withdraw(withdraw)

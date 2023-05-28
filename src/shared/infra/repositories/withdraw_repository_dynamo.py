@@ -105,6 +105,8 @@ class WithdrawRepositoryDynamo(IWithdrawRepository):
                 "finish_time": finish_time
             }
         )
+        updated_withdraw = WithdrawDynamoDTO.from_dynamo(response['Attributes']).to_entity()
+        return updated_withdraw
         
     def get_all_notebooks(self):
         response = self.dynamo.get_all_items()
