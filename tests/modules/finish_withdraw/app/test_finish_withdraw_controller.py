@@ -8,9 +8,13 @@ class Test_FinishWithdrawController:
         repo = WithdrawRepositoryMock()
         usecase = FinishWithdrawUsecase(repo)
         controller = FinishWithdrawController(usecase)
-        request = HttpRequest(body={
-            'num_serie':'34036' 
-        })
+        request = HttpRequest(body={'num_serie':'34036', 'requester_user' : {
+                "sub" : "123456789",
+                "email" : "rony@maua.br",
+                "name" : "Rony Rustico",
+                "custom:ra" : None,
+                "custom:role" : "EMPLOYEE"
+            }})
 
         response = controller(request)
         assert response.status_code == 200
