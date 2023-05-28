@@ -24,7 +24,7 @@ class Test_GetAllNotebooksViewModel:
                         'num_serie':'34035',
                         'isActive':False
                     },
-                    'withdraws':None
+                    'withdraws':[]
                 },
                 {
                     'notebook':{
@@ -46,7 +46,7 @@ class Test_GetAllNotebooksViewModel:
                         'num_serie':'34037',
                         'isActive':False
                     },
-                    'withdraws':None
+                    'withdraws':[]
                 },
                 {
                     'notebook':{
