@@ -80,3 +80,5 @@ class User(abc.ABC):
         
         return True
     
+    def __eq__(self, other):
+        return self.ra == other.ra and self.name == other.name and self.email == other.email and self.role == other.role

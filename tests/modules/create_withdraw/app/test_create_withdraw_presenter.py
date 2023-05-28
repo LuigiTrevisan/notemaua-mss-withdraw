@@ -25,14 +25,12 @@ class Test_CreateWithdrawPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
+                    "claims" : {
+                        "sub" : "e2d865b1-e0c3-427e-866a-efa4e72e20f9",
+                        "name" : "Arthur Trevisan",
+                        "email" : "arthur@maua.br",
+                        "custom:role" : "EMPLOYEE",
+                        "custom:ra" : None
                     }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
@@ -50,10 +48,10 @@ class Test_CreateWithdrawPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"num_serie":"34035","email":"arthur@maua.br"}',
+            "body": '{"num_serie":"34035"}',
             "pathParameters": None,
             "isBase64Encoded": None,
-            "stageVariables": None
+            "stageVariables": None,
         }
         
         response = lambda_handler(event, None)

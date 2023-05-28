@@ -1,4 +1,6 @@
 import pytest
+from src.shared.domain.entities.user import User
+from src.shared.domain.enums.role import ROLE
 
 from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
 from src.modules.get_all_notebooks.app.get_all_notebooks_usecase import GetAllNotebooksUsecase
@@ -8,7 +10,13 @@ class Test_GetAllNotebooksViewModel:
     def test_get_all_notebooks_viewmodel(self):
         repo = WithdrawRepositoryMock()
         usecase = GetAllNotebooksUsecase(repo=repo)
-        viewmodel = GetAllNotebooksViewmodel(notebooks=usecase()).to_dict()
+        requester_user = User(
+            ra=None,
+            name="Rony Rustico",
+            email="rony@maua.br",
+            role=ROLE.EMPLOYEE
+        )
+        viewmodel = GetAllNotebooksViewmodel(notebooks=usecase(user=requester_user)).to_dict()
         expected = {
    'notebooks':[
                 {
