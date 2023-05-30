@@ -17,7 +17,8 @@ class GetAllNotebooksUsecase:
         if user.role not in [ROLE.ADMIN, ROLE.EMPLOYEE]:
             raise ForbiddenAction("user")
         
-        notebooks = self.repo.get_all_notebooks()
+        notebooks_unsorted = self.repo.get_all_notebooks()
+        notebooks = sorted(notebooks_unsorted, key=lambda x: x[0].num_serie)
         active_withdraws = []
         for notebook, withdraws in notebooks:
             if notebook.isActive == True:
