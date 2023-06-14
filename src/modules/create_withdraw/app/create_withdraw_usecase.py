@@ -2,7 +2,7 @@ from datetime import datetime
 from src.shared.domain.entities.withdraw import Withdraw
 from src.shared.domain.repositories.user_repository_interface import IUserRepository
 from src.shared.domain.repositories.withdraw_repository_interface import IWithdrawRepository
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import NoItemsFound, NotebookAlreadyActive, UserAlreadyActiveNotebook
 
 
 class CreateWithdrawUsecase:
@@ -16,12 +16,12 @@ class CreateWithdrawUsecase:
             raise NoItemsFound('num_serie')
         
         if notebook.isActive:
-            raise DuplicatedItem('num_serie')
+            raise NotebookAlreadyActive()
 
         withdraws = self.repo_withdraw.get_withdraws_by_email(email)
         for withdraw in withdraws:
             if withdraw.finish_time is None:
-                raise DuplicatedItem('email')
+                raise UserAlreadyActiveNotebook()
             
         withdraw = Withdraw(len(withdraws), num_serie, email, int(datetime.now().timestamp() * 1000))
         

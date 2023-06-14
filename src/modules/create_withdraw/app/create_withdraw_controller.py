@@ -2,7 +2,7 @@ from .create_withdraw_usecase import CreateWithdrawUsecase
 from .create_withdraw_viewmodel import CreateWithdrawViewmodel
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound, NotebookAlreadyActive, UserAlreadyActiveNotebook
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError, NotFound
 from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
@@ -48,6 +48,12 @@ class CreateWithdrawController:
             return NotFound(body=err.message)
 
         except EntityError as err:
+            return BadRequest(body=err.message)
+        
+        except UserAlreadyActiveNotebook as err:
+            return BadRequest(body=err.message)        
+        
+        except NotebookAlreadyActive as err:
             return BadRequest(body=err.message)
         
         except Exception as err:

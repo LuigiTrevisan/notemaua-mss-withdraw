@@ -1,6 +1,6 @@
 import pytest
 from src.modules.create_withdraw.app.create_withdraw_usecase import CreateWithdrawUsecase
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import NoItemsFound, NotebookAlreadyActive, UserAlreadyActiveNotebook
 from src.shared.infra.repositories.user_repository_mock import UserRepositoryMock
 from src.shared.infra.repositories.withdraw_repository_mock import WithdrawRepositoryMock
 
@@ -29,12 +29,12 @@ class Test_CreateWithdrawUsecase:
         repo = WithdrawRepositoryMock()
         repo_user = UserRepositoryMock()
         usecase = CreateWithdrawUsecase(repo_withdraw=repo, repo_user = repo_user)
-        with pytest.raises(DuplicatedItem):
+        with pytest.raises(NotebookAlreadyActive):
             usecase(num_serie='34038', email="arthur@maua.br")
             
     def test_create_withdraw_usecase_with_user_already_with_notebook(self):
         repo = WithdrawRepositoryMock()
         repo_user = UserRepositoryMock()
         usecase = CreateWithdrawUsecase(repo_withdraw=repo, repo_user = repo_user)
-        with pytest.raises(DuplicatedItem):
+        with pytest.raises(UserAlreadyActiveNotebook):
             usecase(num_serie='34037', email="22.01102-0@maua.br") 

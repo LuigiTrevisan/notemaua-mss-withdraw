@@ -79,7 +79,7 @@ class Test_CreateWithdrawController:
                               
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'The item alredy exists for this email'
+        assert response.body == 'This user already has an active notebook.'
         
     def test_create_withdraw_controller_notebook_already_active(self):
         repo_withdraw = WithdrawRepositoryMock()
@@ -96,7 +96,7 @@ class Test_CreateWithdrawController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'The item alredy exists for this num_serie'
+        assert response.body == 'This notebook is already active.'
         
     def test_create_withdraw_controller_notebook_not_found(self):
         repo_withdraw = WithdrawRepositoryMock()
