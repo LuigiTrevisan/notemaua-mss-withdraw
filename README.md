@@ -1,6 +1,6 @@
 # notemaua-mss-withdraw 📚💻
 
-Microservice for withdraws and notebooks management in NoteMaua project for Instituto Mauá de Tecnologia.
+Microservice for withdraws and laptop management in NoteMaua project for Instituto Mauá de Tecnologia.
 
 ## The Project 📝
 
